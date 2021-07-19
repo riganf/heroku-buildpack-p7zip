@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "-----> Installing p7zip"
+BUILD_DIR=$1
+mkdir -p "$BUILD_DIR/vendor"
+VENDOR_DIR="$BUILD_DIR/vendor"
+curl "https://raw.githubusercontent.com/riganf/heroku-buildpack-p7zip/master/p7zip.tar.gz" -s -o - | tar xzf - -C "$VENDOR_DIR"
+PROFILE_PATH="$BUILD_DIR/.profile.d/7zz.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$PATH:${HOME}/vendor/p7zip/bin"' >> $PROFILE_PATH
+
+echo "-----> Done."
